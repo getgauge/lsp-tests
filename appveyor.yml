@@ -11,11 +11,11 @@ init:
 - ps: npm --version
 install:
 - ps: >-
-    $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
+    $env:Path = "c:\Program Files\Gauge\bin;C:\maven\apache-maven-3.3.9\bin;" + [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
-    &$gauge version
+    &gauge version
 
-    &$gauge install
+    &gauge install
 cache:
 - packages
 - '%APPDATA%\gauge\plugins'
@@ -29,11 +29,9 @@ notifications:
   on_build_status_changed: true
 test_script:
 - ps: >-
-    $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
-
     npm install
 
-    &$gauge run specs 
+    &gauge run specs
 artifacts:
 - path: ./reports/html-reportreport
   name: gauge-reports
