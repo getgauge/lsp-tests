@@ -1,6 +1,6 @@
 environment:
   nodejs_version: "8"
-
+  screenshot_on_failure: "false"
 version: 1.0.{build}
 init:
 - ps: choco install gauge
