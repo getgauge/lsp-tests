@@ -13,6 +13,7 @@ install:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
 
+    &$gauge version
     &$gauge install
 cache:
 - packages
