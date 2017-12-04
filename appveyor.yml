@@ -14,6 +14,7 @@ install:
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
 
     &$gauge version
+
     &$gauge install
 cache:
 - packages
@@ -30,10 +31,7 @@ test_script:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
 
-    &$gauge version
-
     &$gauge run specs 
-
 artifacts:
 - path: ./reports/html-reportreport
   name: gauge-reports
