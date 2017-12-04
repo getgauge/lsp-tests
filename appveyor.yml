@@ -31,6 +31,8 @@ test_script:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
 
+    npm install
+
     &$gauge run specs 
 artifacts:
 - path: ./reports/html-reportreport
