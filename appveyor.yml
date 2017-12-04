@@ -1,5 +1,5 @@
 environment:
-  nodejs_version: "6"
+  nodejs_version: "9"
 
 version: 1.0.{build}
 init:
@@ -31,7 +31,7 @@ test_script:
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
 
     &$gauge version
-
+    
     &$gauge run specs 
 artifacts:
 - path: ./reports/html-reportreport
