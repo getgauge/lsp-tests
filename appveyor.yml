@@ -31,8 +31,9 @@ test_script:
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
 
     &$gauge version
-    
+
     &$gauge run specs 
+
 artifacts:
 - path: ./reports/html-reportreport
   name: gauge-reports
