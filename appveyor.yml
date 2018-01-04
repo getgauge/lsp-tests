@@ -16,6 +16,7 @@ build_script:
     cd $env:GOPATH\src\github.com\getgauge\gauge
     git checkout request_timeout
     go get github.com/getgauge/gauge
+    cd $env:APPVEYOR_BUILD_FOLDER
     $env:Path = "c:\Program Files\Gauge\bin;" + [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") + ";" +  "c:\gopath\bin"
     Write-Host "PATH : $($env:PATH)"
     gauge version
