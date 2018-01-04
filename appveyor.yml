@@ -1,5 +1,6 @@
 environment:
   nodejs_version: "8"
+  GOPATH: c:\gopath
 
 version: 1.0.{build}
 init:
@@ -13,7 +14,7 @@ build_script:
 - ps: |
     go get -d github.com/getgauge/gauge
     echo %GOPATH%
-    cd %GOPATH% + "\bin\gauge"
+    cd $env:GOPATH + "\bin\gauge"
     git checkout request_timeout
     go get github.com/getgauge/gauge
     $env:Path = "c:\Program Files\Gauge\bin;" + [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
