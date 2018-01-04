@@ -11,7 +11,10 @@ init:
 
 build_script:
 - ps: |
-    .\installGaugeNightly.ps1
+    go get -d github.com/getgauge/gauge
+    cd %GOPATH% + "\bin\gauge"
+    git checkout request_timeout
+    go get github.com/getgauge/gauge
     $env:Path = "c:\Program Files\Gauge\bin;" + [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
     Write-Host "PATH : $($env:PATH)"
     gauge version
