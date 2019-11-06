@@ -14,7 +14,12 @@ function prerequisite(projectPath, runner) {
         var version = JSON.parse(output.toString()).plugins.find(p => p.name == "ruby").version;
         var gemFilePath = path.join(projectPath, "Gemfile");
         var fileContent = file.parseContent(gemFilePath);
-        var newContent = `gem 'gauge-ruby', '~>${version}', :github => 'getgauge/gauge-ruby', :branch => ENV['RUBY_PLUGIN_BRANCH'] || 'master', :group => [:development, :test]`;
+        var newContent = "" ;
+        if(process.env.USE_LOCAL_GAUGE_RUBY == "true" )
+            newContent = `gem 'gauge-ruby', '~>${version}', :path => ENV['LOCAL_GAUGE_RUBY_PATH'] || '${process.cwd()}/../gauge-ruby', :group => [:development, :test]`;
+        else
+            newContent = `gem 'gauge-ruby', '~>${version}', :github => 'getgauge/gauge-ruby', :branch => ENV['RUBY_PLUGIN_BRANCH'] || 'master', :group => [:development, :test]`;
+            console.log(newContent)
         var result = fileContent.replace(/gem 'gauge-ruby'.*:group => \[:development, :test\]/, newContent);
         file.write(gemFilePath, result);
         var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
