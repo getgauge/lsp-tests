@@ -19,7 +19,6 @@ function prerequisite(projectPath, runner) {
             newContent = `gem 'gauge-ruby', '~>${version}', :path => ENV['LOCAL_GAUGE_RUBY_PATH'] || '${process.cwd()}/../gauge-ruby', :group => [:development, :test]`;
         else
             newContent = `gem 'gauge-ruby', '~>${version}', :github => 'getgauge/gauge-ruby', :branch => ENV['RUBY_PLUGIN_BRANCH'] || 'master', :group => [:development, :test]`;
-            console.log(newContent)
         var result = fileContent.replace(/gem 'gauge-ruby'.*:group => \[:development, :test\]/, newContent);
         file.write(gemFilePath, result);
         var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
