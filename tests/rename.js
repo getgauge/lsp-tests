@@ -2,7 +2,6 @@ var languageclient = require("./lsp/languageclient");
 var file = require("./util/fileExtension");
 var builder = require("./lsp/util/dataBuilder");
 var assert = require("assert");
-var os = require("os");
 step("textDocument/rename with details <details>", async function (jsonDetails) {
   var details = builder.buildRefactor(jsonDetails);
   var result = await languageclient.refactor(details.input.uri, details.input.position, details.input.newName);
@@ -11,7 +10,6 @@ step("textDocument/rename with details <details>", async function (jsonDetails) 
 
 function verifyRefactorResult(expectedResults, actualResults) {
   var errList = [];
-  errList.push(`Current User id : ${JSON.stringify(os.userInfo())}`);
 
   if(process.env.debugLSPTest)
     console.log(JSON.stringify(actualResults));
@@ -20,9 +18,6 @@ function verifyRefactorResult(expectedResults, actualResults) {
     var fileUri = file.getUri(filePathFromLangClient);
     var expectedList = expectedResults.changes[k];
     var actualList = actualResults.changes[fileUri];
-    errList.push(`"k" : "${k}","fileUri" : "${fileUri}"`);
-    errList.push(`"languageclient.filePath(k)" : "${filePathFromLangClient}"`);
-    errList.push(`"expectedResults.changes" : ${JSON.stringify(expectedResults.changes)}, "actualResults.changes" : ${JSON.stringify(actualResults.changes)}`);
     if (actualList == null) {
       errList.push("expected " + JSON.stringify(expectedList) + " not in " + JSON.stringify(actualResults.changes));
       continue;
