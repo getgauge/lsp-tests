@@ -15,8 +15,8 @@ function prerequisite(projectPath, runner) {
         var gemFilePath = path.join(projectPath, "Gemfile");
         var fileContent = file.parseContent(gemFilePath);
         var newContent = "" ;
-        if(process.env.USE_LOCAL_GAUGE_RUBY == "true" )
-            newContent = `gem 'gauge-ruby', '~>${version}', :path => ENV['LOCAL_GAUGE_RUBY_PATH'] || '${process.cwd()}/../gauge-ruby', :group => [:development, :test]`;
+        if(process.env.BUILD_FROM_COMMIT_HASH == "true" )
+            newContent = `gem 'gauge-ruby', '~>${version}', :github => ENV['GITHUB_REPOSITORY'] || 'getgauge/gauge-ruby', :ref => '${process.env.LATEST_COMMIT_HASH}', :group => [:development, :test]`;
         else
             newContent = `gem 'gauge-ruby', '~>${version}', :github => 'getgauge/gauge-ruby', :branch => ENV['RUBY_PLUGIN_BRANCH'] || 'master', :group => [:development, :test]`;
         var result = fileContent.replace(/gem 'gauge-ruby'.*:group => \[:development, :test\]/, newContent);
