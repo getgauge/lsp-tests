@@ -69,6 +69,7 @@ step("remove the env, specs and impl folders copied from the template", function
 
 step("create temporary directory", function() {
   var projectPath = _user.createTempDirectory();
+  console.log(JSON.stringify({ logLevel: "info", message: `Current project path: ${projectPath}` }));
   gauge.dataStore.scenarioStore.put("projectPath", projectPath);
   process.env.use_test_ga=true;
   process.env.logs_directory = path.relative(projectPath,"logs")+"/lsp-tests/"+customLogPath;

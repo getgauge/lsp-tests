@@ -16,12 +16,14 @@ function verifyRefactorResult(expectedResults, actualResults) {
   if(process.env.debugLSPTest)
     console.log(JSON.stringify(actualResults));
   for (var k in expectedResults.changes) {
-    var fileUri = file.getUri(languageclient.filePath(k));
+    const filePathFromLangClient = languageclient.filePath(k);
+    var fileUri = file.getUri(filePathFromLangClient);
     var expectedList = expectedResults.changes[k];
     var actualList = actualResults.changes[fileUri];
+    errList.push(`"k" : "${k}","fileUri" : "${fileUri}"`);
+    errList.push(`"languageclient.filePath(k)" : "${filePathFromLangClient}"`);
+    errList.push(`"expectedResults.changes" : ${JSON.stringify(expectedResults.changes)}, "actualResults.changes" : ${JSON.stringify(actualResults.changes)}`);
     if (actualList == null) {
-      errList.push(`.\n.\n.\nk : ${k}\n.\n.\n.fileUri : ${fileUri}\n.\n.\n.\n`);
-      errList.push(`.\n.\n.\nexpectedResults.changes : ${JSON.stringify(expectedResults.changes)}\n.\n.\n.actualResults.changes : ${JSON.stringify(actualResults.changes)}\n\n`);
       errList.push("expected " + JSON.stringify(expectedList) + " not in " + JSON.stringify(actualResults.changes));
       continue;
     }
