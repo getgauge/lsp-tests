@@ -1,34 +1,34 @@
-var tmp = require("tmp");
+var fs = require("fs");
 var ncp = require("ncp").ncp;
 var os = require("os");
 var file = require("./util/fileExtension");
-var tmpobj; 
+var tmpobj;
 
 function copyDataToDir(data,projectDir,done){
-  ncp(data, projectDir,done); 
+  ncp(data, projectDir,done);
 }
 
 function createTempDirectory(){
-  tmpobj = tmp.dirSync();
+  tmpobj = fs.mkdtempSync(os.tmpdir());
   if(os.platform()=="darwin")
-    return "/private"+tmpobj.name;    
-  return tmpobj.name;    
+    return "/private"+tmpobj;
+  return tmpobj;
 }
 
 function getProjectDirectory(){
-  return "/private"+tmpobj.name;
+  return "/private"+tmpobj;
 }
 
 function removeCallback(){
   if(tmpobj)
   {
-    tmpobj.removeCallback();        
+    tmpobj.removeCallback();
   }
 }
 
 function removeTempDirectory(){
   if(tmpobj)
-    file.rmDir(tmpobj.name);
+    file.rmDir(tmpobj);
 }
 
 module.exports={
