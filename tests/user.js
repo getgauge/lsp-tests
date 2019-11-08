@@ -10,7 +10,7 @@ function copyDataToDir(data,projectDir,done){
 }
 
 function createTempDirectory(){
-  tmpobj = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), "gauge-lsp-test"));
+  tmpobj = fs.mkdtempSync(path.join(fs.realpathSync.native(os.tmpdir()), "gauge-lsp-test"));
   return tmpobj;
 }
 
