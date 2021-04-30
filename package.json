@@ -11,7 +11,7 @@
     "ncp": "^2.0.0",
     "tmp": "^0.0.33",
     "vscode-jsonrpc": "^4.0.0",
-    "vscode-uri": "^1.0.5"
+    "vscode-uri": "^3.0.2"
   },
   "devDependencies": {
     "eslint": "^7.15.0"
